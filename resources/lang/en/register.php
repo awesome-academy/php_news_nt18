@@ -2,7 +2,7 @@
 
 return [
     'friend-finder' => 'Friend Finder',
-    'find-friend' => 'Find My Friends',
+    'register' => 'Register to App',
     'signup-welcome' => 'Signup now and meet awesome people around the world',
     'enter-name' => 'Enter name',
     'enter-email' => 'Enter email',
@@ -23,4 +23,9 @@ return [
     'number2' => '41,242',
     'number3' => '1,01,242',
     'people-onl' => 'People online',
+    'login' => 'Login',
+    'signin-welcome' => 'Signin now and connect people around the world',
+    'login' => 'Login',
+    'remember' => 'Remember me',
+    'validate_login' => 'You are logged in!',
 ];

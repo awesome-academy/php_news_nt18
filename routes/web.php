@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,5 +14,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', 'HomeController@index')->name('home');
-Route::get('/user', 'ProfileController@show')->name('profile.index');
+Auth::routes();
+Route::get('user', 'ProfileController@show')->name('profile.index');
+Route::get('home', 'HomeController@index')->name('home');
+Route::get('/logout', 'HomeController@logout')->name('logout');
