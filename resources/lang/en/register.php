@@ -1,0 +1,26 @@
+<?php
+
+return [
+    'friend-finder' => 'Friend Finder',
+    'find-friend' => 'Find My Friends',
+    'signup-welcome' => 'Signup now and meet awesome people around the world',
+    'enter-name' => 'Enter name',
+    'enter-email' => 'Enter email',
+    'enter-pass' => 'Enter a password',
+    'agree' => 'By signning up you agree to the terms',
+    'signup' => 'Signup',
+    'have-acc' => 'Already have an account?',
+    'herd' => 'social herd',
+    'make-friend' => 'Make Friends',
+    'publish-posts' => 'Publish Posts',
+    'private-chat' => 'Private Chats',
+    'create-polls' => 'Create Polls',
+    'find-like' => 'find awesome people like you',
+    'people-sign' => 'People Already Signed Up',
+    'peole-register' => 'People registered',
+    'number1' => '21,01,242',
+    'post-publish' => 'Posts published',
+    'number2' => '41,242',
+    'number3' => '1,01,242',
+    'people-onl' => 'People online',
+];
