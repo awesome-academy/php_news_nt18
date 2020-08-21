@@ -51,9 +51,6 @@
                                     <a class="dropdown-item" href="{{ route('logout') }}" >
                                         {{ trans('layouts.logout') }}
                                     </a>
-                                    {{-- <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                        @csrf
-                                    </form> --}}
                                 </li>
                             </ul>
                         </li>

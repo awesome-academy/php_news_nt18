@@ -3,11 +3,18 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\User;
+use App\Models\Post;
+use Illuminate\Support\Facades\Auth;
+
 
 class ProfileController extends Controller
 {
-    public function show()
+    public function show($username)
     {
-        return view('profile.index');
+        $user = User::where('name', $username)->firstOrFail();
+        $posts = Post::latest()->where('user_id', Auth::id())->get();
+        
+        return view('profile.index',compact('user', 'posts'));
     }
 }
