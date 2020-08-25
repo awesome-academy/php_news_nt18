@@ -2,29 +2,56 @@
 @section('content')
     <section id="banner">
         <div class="container">
+            
             <div class="sign-up-form">
                 <a href="#" class="logo"><img src="{{ asset('bower_components/bower-package/images/logo.png') }}" alt="{{ trans('register.friend-finder') }}"/></a>
-                <h2 class="text-white">{{ trans('register.find-friend') }}</h2>
+                <h2 class="text-white">{{ trans('register.register') }}</h2>
                 <div class="line-divider"></div>
                 <div class="form-wrapper">
                     <p class="signup-text">{{ trans('register.signup-welcome') }}</p>
-                    <form action="#">
+
+                    <form method="POST" action="{{ route('register') }}">
+                        @csrf
+
                         <fieldset class="form-group">
-                            <input type="text" class="form-control" id="example-name" placeholder="{{ trans('register.enter-name') }}">
+                            <input type="text" id="name" class="form-control @error('name') is-invalid @enderror" name="name" placeholder="{{ trans('register.enter-name') }}" value="{{ old('name') }}" required autocomplete="name" autofocus>
+                            @error('name')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
                         </fieldset>
+
                         <fieldset class="form-group">
-                            <input type="email" class="form-control" id="example-email" placeholder="{{ trans('register.enter-email') }}">
+                            <input id="email" type="email" placeholder="{{ trans('register.enter-email') }}" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
+                            @error('email')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
                         </fieldset>
+
                         <fieldset class="form-group">
-                            <input type="password" class="form-control" id="example-password" placeholder="{{ trans('register.enter-pass') }}">
+                            <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password" placeholder="{{ trans('register.enter-pass') }}">
+                                @error('password')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
                         </fieldset>
+
+                        <fieldset class="form-group">
+                            <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password" placeholder="{{ trans('register.confirm-pass') }}">
+                        </fieldset>
+                        
+                        <p>{{ trans('register.agree') }}</p>
+                        <button type="submit" class="btn-secondary">{{ trans('register.signup') }}</button>
                     </form>
-                    <p>{{ trans('register.agree') }}</p>
-                    <button class="btn-secondary">{{ trans('register.signup') }}</button>
+                    
                 </div>
-                <a href="#">{{ trans('register.have-acc') }}</a>
                 <img class="form-shadow" src="{{ asset('bower_components/bower-package/images/bottom-shadow.png') }}" alt="" />
             </div>
+
             <svg class="arrows hidden-xs hidden-sm">
                 <path class="a1" d="M0 0 L30 32 L60 0"></path>
                 <path class="a2" d="M0 20 L30 52 L60 20"></path>
