@@ -14,7 +14,8 @@ use Illuminate\Support\Facades\Auth;
 |
 */
 
-Auth::routes();
-Route::get('user', 'ProfileController@show')->name('profile.index');
 Route::get('home', 'HomeController@index')->name('home');
-Route::get('/logout', 'HomeController@logout')->name('logout');
+Route::get('logout', 'HomeController@logout')->name('logout');
+Auth::routes();
+Route::get('user/{username}', 'ProfileController@show')->name('profile.index')->middleware('auth');
+Route::post('post', 'PostController@store')->name('post.store')->middleware('auth');
