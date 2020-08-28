@@ -7,9 +7,14 @@
                 <div class="row">
                     <div class="col-md-3">
                         <div class="profile-info">
-                            <img src="{{ asset('bower_components/bower-package/images/users/user-1.jpg') }}" alt="" class="img-responsive profile-photo" />
+                            @if ($user->avatar == NULL)
+                                <img src="{{ asset('bower_components/bower-package/images/users/user-1.jpg') }}" alt="" class="img-responsive profile-photo" />
+                            @else
+                                <img src="{{ asset(config('media.image') . $user->avatar) }}" alt="" class="img-responsive profile-photo" />
+                            @endif
+                            
                             <h3><strong>{{ $user->name }}</strong></h3> 
-                            <p class="text-muted">{{ trans('profile.status') }}</p>
+                            <p class="text-muted">{{ trans('profile.status') }}{{ $user->address }}</p>
                         </div>
                     </div>
                     <div class="col-md-9">
@@ -63,7 +68,7 @@
             </div>
             <div class="navbar-mobile hidden-lg hidden-md">
                 <div class="profile-info">
-                    <img src="{{ asset('bower_components/bower-package/images/users/user-1.jpg') }}" alt="" class="img-responsive profile-photo" />
+                    <img src="{{ asset(config('media.image') . $user->avatar) }}" alt="" class="img-responsive profile-photo" />
                     <h3>{{ $user->name }}</h3>  
                     {{ trans('profile.status') }}
                 </div>
@@ -95,7 +100,7 @@
                             @if (Auth::id() == $user->id)
                                 <div class="card-header">
                                     <h4>
-                                        <img src="{{ asset('bower_components/bower-package/images/users/user-1.jpg') }}" alt="" class="profile-photo-md" />
+                                        <img src="{{ asset(config('media.image') . $user->avatar) }}" alt="" class="profile-photo-md" />
                                         <span>
                                             <strong>{{ $user->name }}</strong>
                                         </span>
@@ -134,7 +139,7 @@
                                     <p class="text-grey">{{ $post->created_at->format('d-m-Y') }}</p>
                                 </div>
                                 <div class="post-container">
-                                    <img src="{{ asset('bower_components/bower-package/images/users/user-1.jpg') }}" alt="user" class="profile-photo-md pull-left" />
+                                    <img src="{{ asset(config('media.image') . $user->avatar) }}" alt="user" class="profile-photo-md pull-left" />
                                     <div class="post-detail">
                                         <div class="user-info">
                                             <h5>
@@ -164,6 +169,7 @@
                                                 </tr>
                                             @endforeach
                                         </div>
+                                        <div class="line-divider"></div>
                                         <div class="post-text caption">
                                             <p><strong>{{ $post->caption }}</strong></p>
                                         </div>
@@ -177,10 +183,10 @@
                                                 @csrf
                                                 <div class="form-group row">
                                                     <div class="col-md-1 avatar-user">
-                                                        <img src="{{ asset('bower_components/bower-package/images/users/user-1.jpg') }}" class="profile-photo-sm" />
+                                                        <img src="{{ asset(config('media.image') . Auth::user()->avatar) }}" class="profile-photo-sm" />
                                                     </div>
                                                     <div class="col-md-11 layout-comment-input">
-                                                        <a href="#" class="profile-link">{{ Auth::user()->name }}</a>
+                                                        <a href="{{ route('profile.index', ['userId' => Auth::id()]) }} class="profile-link">{{ Auth::user()->name }}</a>
                                                         <input class="form-control comment-input-style" name="comment" placeholder="{{ trans('profile.post-comment') }}" autocomplete="off">
                                                         <input type="hidden" name="post_id" value="{{ $post->id }}" />
                                                         <input type="hidden" name="user_id" value="{{ Auth::id() }}" />

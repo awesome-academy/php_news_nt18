@@ -8,20 +8,22 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#"><img src="{{ asset('bower_components/bower-package/images/logo.png') }}" alt="logo" /></a>
+                <a class="navbar-brand" href="{{ route('home') }}">
+                    <img src="{{ asset('bower_components/bower-package/images/logo.png') }}" alt="logo" />
+                </a>
             </div>
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right main-menu">
-                    <li class="dropdown"><a href="#">{{ trans('layouts.home') }}</a></li>
+                    <li class="dropdown"><a href="{{ route('home') }}">{{ trans('layouts.home') }}</a></li>
                     @if (Auth::check())
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ trans('layouts.newsfeed') }} <span><img src="{{ asset('bower_components/bower-package/images/down-arrow.png') }}" alt="" /></span></a>
                             <ul class="dropdown-menu newsfeed-home">
                                 <li>
-                                    <a href="#">{{ trans('layouts.newsfeed') }}</a>
+                                    <a href="{{ route('home') }}">{{ trans('layouts.newsfeed') }}</a>
                                 </li>
                                 <li>
-                                    <a href="#">{{ trans('layouts.newsfeed') }}</a>
+                                    <a href="{{ route('home') }}">{{ trans('layouts.newsfeed') }}</a>
                                 </li>
                             </ul>
                         </li>
@@ -51,11 +53,19 @@
                             </li>
                         @endif
                     @else
+                        <li>
+                            <img src="{{ asset(config('media.image') . Auth::user()->avatar) }}" class="profile-photo-sm" />
+                        </li>
                         <li class="nav-item dropdown">
                             <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                 {{ Auth::user()->name }} <span><img src="{{ asset('bower_components/bower-package/images/down-arrow.png') }}" alt="" /></span>
                             </a>
                             <ul class="dropdown-menu ">
+                                <li>     
+                                    <a class="dropdown-item" href="{{ route('profile.edit', ['userId' => Auth::id()]) }}" >
+                                        {{ trans('layouts.edit_profile') }}
+                                    </a>
+                                </li>
                                 <li>     
                                     <a class="dropdown-item" href="{{ route('logout') }}" >
                                         {{ trans('layouts.logout') }}

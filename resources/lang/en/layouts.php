@@ -14,6 +14,7 @@ return [
     'register' => 'Register',
     'login' => 'Login',
     'logout' => 'Logout',
+    'edit_profile' => 'Edit Profile',
     'explore' => 'Explore',
     'features' => 'Features',
     'for-individuals' => 'For individuals',
