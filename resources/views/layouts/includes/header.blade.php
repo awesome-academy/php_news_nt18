@@ -1,7 +1,6 @@
 <header id="header" class="visible">
     <nav class="navbar navbar-default navbar-fixed-top menu">
         <div class="container">
-
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
                 <span class="sr-only">{{ trans('layouts.toggle-navigation') }}</span>
@@ -18,16 +17,26 @@
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ trans('layouts.newsfeed') }} <span><img src="{{ asset('bower_components/bower-package/images/down-arrow.png') }}" alt="" /></span></a>
                             <ul class="dropdown-menu newsfeed-home">
-                                <li><a href="#">{{ trans('layouts.newsfeed') }}</a></li>
-                                <li><a href="#">{{ trans('layouts.newsfeed') }}</a></li>
+                                <li>
+                                    <a href="#">{{ trans('layouts.newsfeed') }}</a>
+                                </li>
+                                <li>
+                                    <a href="#">{{ trans('layouts.newsfeed') }}</a>
+                                </li>
                             </ul>
                         </li>
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ trans('layouts.timeline') }} <span><img src="{{ asset('bower_components/bower-package/images/down-arrow.png') }}" alt="" /></span></a>
                             <ul class="dropdown-menu login">
-                                <li><a href="{{ route('profile.index',['username'=>Auth::user()->name]) }}">{{ trans('layouts.timeline') }}</a></li>
-                                <li><a href="{{ route('profile.index',['username'=>Auth::user()->name]) }}">{{ trans('layouts.timeline-friend') }}</a></li>
-                                <li><a href="{{ route('profile.index',['username'=>Auth::user()->name]) }}">{{ trans('layouts.timeline-me') }}</a></li>
+                                <li>
+                                    <a href="{{ route('profile.index', ['userId' => Auth::id()]) }}">{{ trans('layouts.timeline') }}</a>
+                                </li>
+                                <li>
+                                    <a href="{{ route('profile.index', ['userId' => Auth::id()]) }}">{{ trans('layouts.timeline-friend') }}</a>
+                                </li>
+                                <li>
+                                    <a href="{{ route('profile.index', ['userId' => Auth::id()]) }}">{{ trans('layouts.timeline-me') }}</a>
+                                </li>
                             </ul>
                         </li>
                     @endif

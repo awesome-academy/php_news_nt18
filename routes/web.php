@@ -14,9 +14,18 @@ use Illuminate\Support\Facades\Auth;
 |
 */
 
-Route::get('home', 'HomeController@index')->name('home');
+Route::get('/home', 'HomeController@index')->name('home')->middleware('auth');
 Route::get('logout', 'HomeController@logout')->name('logout');
 Auth::routes();
-Route::get('user/{username}', 'ProfileController@show')->name('profile.index')->middleware('auth');
+
+// User Profile
+Route::group(['prefix' => 'user', 'middleware' => 'auth'], function() {
+    Route::get('{userId}', 'ProfileController@show')->name('profile.index');
+    Route::post('{userId}/follow', 'ProfileController@followUser')->name('profile.follow');
+    Route::post('{userId}/unfollow', 'ProfileController@unFollowUser')->name('profile.unfollow');
+    Route::get('{userId}/followers', 'ProfileController@followers')->name('profile.followers');
+    Route::get('{userId}/following', 'ProfileController@following')->name('profile.following');
+});
+
 Route::post('post', 'PostController@store')->name('post.store')->middleware('auth');
 Route::post('comment', 'CommentController@store')->name('comment.store')->middleware('auth');

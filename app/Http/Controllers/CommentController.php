@@ -10,8 +10,7 @@ class CommentController extends Controller
 {
     public function store(CommentRequest $request)
     {
-        $input = $request->all();
-        Comment::create($input);
+        Comment::create($request->all());
    
         return back();
     }
