@@ -8,7 +8,7 @@
                     <div class="col-md-3">
                         <div class="profile-info">
                             <img src="{{ asset('bower_components/bower-package/images/users/user-1.jpg') }}" alt="" class="img-responsive profile-photo" />
-                            <h3>{{ $user->name }}</h3> 
+                            <h3><strong>{{ $user->name }}</strong></h3> 
                             <p class="text-muted">{{ trans('profile.status') }}</p>
                         </div>
                     </div>
@@ -96,10 +96,12 @@
                                 <div class="card-header">
                                     <h4>
                                         <img src="{{ asset('bower_components/bower-package/images/users/user-1.jpg') }}" alt="" class="profile-photo-md" />
-                                        <span>{{ $user->name }}</span>
+                                        <span>
+                                            <strong>{{ $user->name }}</strong>
+                                        </span>
                                     </h4>
                                 </div>
-                                <form action="{{ route('post.store') }}" method="POST" class="form-horizontal">
+                                <form action="{{ route('post.store') }}" method="POST" class="form-horizontal" enctype="multipart/form-data">
                                     @csrf
                                     <div class="card-body">
                                         <div class="form-group">
@@ -109,33 +111,15 @@
                                     <div class="card-footer">
                                         <div class="tools">
                                             <ul class="publishing-tools list-inline">
-                                                <li>
-                                                    <a href="#">
-                                                        <i class="ion-compose"></i>
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a href="#">
-                                                        <i class="ion-images"></i>
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a href="#">
-                                                        <i class="ion-ios-videocam"></i>
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a href="#">
-                                                        <i class="ion-map"></i>
-                                                    </a>
-                                                </li>
+                                                <li><i class="fa fa-camera"></i></li>
+                                                <li><input type="file" class="form-control" name="url[]" multiple></li>
+                                                <button type="submit" class="btn btn-primary pull-right">
+                                                    {{ trans('profile.publish') }}
+                                                </button>
                                             </ul>
-                                            <button type="submit" class="btn btn-primary pull-right">
-                                                {{ trans('profile.publish') }}
-                                            </button>
-                                            <input type="hidden" name="_token" value="{{ Session::token() }}">
                                         </div>
                                     </div>
+                                    <input type="hidden" name="_token" value="{{ Session::token() }}">
                                 </form>
                             @endif
                         </div>
@@ -144,17 +128,19 @@
                         @forelse ($posts as $post)
                             <div class="post-content">
                                 <div class="post-date hidden-xs hidden-sm">
-                                    <h5>{{ $user->name }}</h5>
+                                    <h5>
+                                        <strong>{{ $user->name }}</strong>
+                                    </h5>
                                     <p class="text-grey">{{ $post->created_at->format('d-m-Y') }}</p>
                                 </div>
-                                <img src="{{ asset('bower_components/bower-package/images/post-images/13.jpg') }}" alt="post-image" class="img-responsive post-image" />
                                 <div class="post-container">
                                     <img src="{{ asset('bower_components/bower-package/images/users/user-1.jpg') }}" alt="user" class="profile-photo-md pull-left" />
                                     <div class="post-detail">
                                         <div class="user-info">
                                             <h5>
-                                                <a href="#" class="profile-link">{{ $user->name }}</a>
-                                                <span class="following">{{ trans('profile.following') }}</span>
+                                                <strong>
+                                                    <a href="#" class="profile-link">{{ $user->name }}</a>
+                                                </strong>
                                             </h5>
                                             <p class="text-muted">{{ $post->created_at->format('d-m-Y H:i') }}</p>
                                         </div>
@@ -167,13 +153,24 @@
                                             </a>
                                         </div>
                                         <div class="line-divider"></div>
-                                        <div class="post-text">
-                                            <p>{{ $post->caption }}</p>
+                                        <div class="post-media media-layouts">
+                                            @foreach ($post->media as $media)
+                                                <tr>
+                                                    <td>
+                                                        @foreach (json_decode($media->url) as $picture)
+                                                            <img class="media-styles" src="{{ asset(config('media.image') . $picture) }}"/>
+                                                        @endforeach
+                                                    </td>
+                                                </tr>
+                                            @endforeach
                                         </div>
-                                        <div class="line-divider"></div>
+                                        <div class="post-text caption">
+                                            <p><strong>{{ $post->caption }}</strong></p>
+                                        </div>
                                         
                                         @include('post.commentDisplay', ['comments' => $post->comments, 'post_id' => $post->id])
-
+                                        
+                                        <div class="line-divider"></div>
                                         <div class="post-comment">
                                             <form method="post" action="{{ route('comment.store') }}">
                                                 @method('POST')
@@ -184,7 +181,7 @@
                                                     </div>
                                                     <div class="col-md-11 layout-comment-input">
                                                         <a href="#" class="profile-link">{{ Auth::user()->name }}</a>
-                                                        <input class="form-control comment-input-style" name="comment" placeholder="{{ trans('profile.post-comment') }}">
+                                                        <input class="form-control comment-input-style" name="comment" placeholder="{{ trans('profile.post-comment') }}" autocomplete="off">
                                                         <input type="hidden" name="post_id" value="{{ $post->id }}" />
                                                         <input type="hidden" name="user_id" value="{{ Auth::id() }}" />
                                                         <button type="submit" class="btn btn-primary" value="Comment"><i class="fa fa-comment" aria-hidden="true"></i></button>
