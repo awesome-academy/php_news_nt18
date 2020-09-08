@@ -7,7 +7,7 @@
                 <div class="row">
                     <div class="col-md-3">
                         <div class="profile-info">
-                            <img src="{{ asset('bower_components/bower-package/images/users/user-1.jpg') }}" alt="" class="img-responsive profile-photo" />
+                            <img src="{{ asset(config('media.image') . $user->avatar) }}" alt="" class="img-responsive profile-photo" />
                             <h3>{{ $user->name }}</h3> 
                             <p class="text-muted">{{ trans('profile.status') }}</p>
                         </div>
@@ -47,7 +47,7 @@
             </div>
             <div class="navbar-mobile hidden-lg hidden-md">
                 <div class="profile-info">
-                    <img src="{{ asset('bower_components/bower-package/images/users/user-1.jpg') }}" alt="" class="img-responsive profile-photo" />
+                    <img src="{{ asset(config('media.image') . $user->avatar) }}" alt="" class="img-responsive profile-photo" />
                     <h3>{{ $user->name }}</h3>  
                     {{ trans('profile.status') }}
                 </div>
@@ -72,7 +72,7 @@
                                 <div class="col-2 profile-box border p-1 rounded text-center bg-light mr-4 mt-3">
                                     <div class="row user-list" >
                                         <div class="col-md-2 follower-image" >
-                                            <img src="{{ asset('bower_components/bower-package/images/users/user-1.jpg') }}" alt="" class="img-responsive profile-photo" />
+                                            <img src="{{ asset(config('media.image') . $user->avatar) }}" alt="" class="img-responsive profile-photo" />
                                         </div>
                                         <div class="col-md-1">
                                             <h5 class="m-0"><a href="{{ route('profile.index', $user->id) }}"><strong>{{ $user->name }}</strong></a></h5>

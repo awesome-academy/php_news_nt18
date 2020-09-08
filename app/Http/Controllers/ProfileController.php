@@ -51,4 +51,30 @@ class ProfileController extends Controller
 
         return view('profile.userList', compact('other', 'user'));
     }
+
+    public function edit($userId)
+    {
+        $user = User::findOrFail($userId);
+        
+        return view('profile.edit',compact('user'));
+    }
+
+    public function update($userId, Request $request)
+    {
+        $user = User::findOrFail($userId);
+
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->address = $request->address;
+        if ($request->hasFile('avatar'))
+        {            
+            $fileName = $request->file('avatar')->getClientOriginalName();
+            $request->file('avatar')->move(public_path().config('media.image'), $fileName);
+            $user->avatar = $fileName;
+        }
+        
+        $user->save();
+
+        return redirect()->route('profile.edit', compact('userId'));
+    }
 }

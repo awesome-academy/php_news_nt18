@@ -25,7 +25,10 @@ Route::group(['prefix' => 'user', 'middleware' => 'auth'], function() {
     Route::post('{userId}/unfollow', 'ProfileController@unFollowUser')->name('profile.unfollow');
     Route::get('{userId}/followers', 'ProfileController@followers')->name('profile.followers');
     Route::get('{userId}/following', 'ProfileController@following')->name('profile.following');
+    Route::get('user/{userId}/edit', 'ProfileController@edit')->name('profile.edit');
+    Route::put('user/{userId}', 'ProfileController@update')->name('profile.update');
 });
 
+//Posts & Comments
 Route::post('post', 'PostController@store')->name('post.store')->middleware('auth');
 Route::post('comment', 'CommentController@store')->name('comment.store')->middleware('auth');
